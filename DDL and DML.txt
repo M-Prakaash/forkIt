@@ -1,0 +1,35 @@
+create table etl_src
+(
+file_id int PRIMARY KEY,
+src_name varchar(50) NOT NULL,
+src_server_name varchar(50) NOT NULL,
+src_file_path varchar(200) NOT NULL,
+file_name_pattern varchar(200) NOT NULL,
+file_element_cnt int NOT NULL,
+file_delimiter varchar(3), 
+file_extension  varchar(5),
+tgt_server_name varchar(50) NOT NULL,
+tgt_file_path varchar(200) NOT NULL,
+tgt_file_name varchar(200) NOT NULL,
+failure_notification_email varchar(100) NOT NULL, 
+reason  varchar(200) NOT NULL,
+sample_file_name varchar(200) NOT NULL
+)
+;
+insert into etl_src
+values (
+101,
+'FTP1',
+'ftp.icrepair.in',
+'\Inbox\Src\Dev',
+'FinancialSample_\d{8}.xlsx',
+3,
+'N/A',
+'xlsx',
+'ftp.icrepair.in',
+'E:\ForkIT\WorkDir\Dev',
+'FinancialSample.xlsx',
+'muralig@systechusa.com',
+'Incorect file format',
+'FinancialSample_20200101.xlsx'
+);
