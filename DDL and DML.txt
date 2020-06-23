@@ -21,7 +21,7 @@ values (
 101,
 'FTP1',
 'ftp.icrepair.in',
-'\Inbox\Src\Dev',
+'Inbox',
 'FinancialSample_\d{8}.xlsx',
 3,
 'N/A',
