@@ -46,7 +46,7 @@ conn = pyodbc.connect('Driver={SQL Server};'
 
 
 cursor = conn.cursor()
-cursor.execute('select * from etl_src where file_id = 101')
+cursor.execute('select * from forkit.dbo.etl_src where file_id = 101')
 
 
 data = cursor.fetchall()
