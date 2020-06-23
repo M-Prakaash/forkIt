@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 21 09:17:21 2020
-
-@author: Murali
-"""
 #!/usr/bin/env python
 # coding: utf-8
 # Team:ForkIT
@@ -28,22 +22,27 @@ class file_validation:
         self.tgt_file_name=tgt_file_name
         self.failure_notification_email =failure_notification_email 
         self.reason=reason
-        self.sample_file_name=sample_file_name
+
     
-    def download_file(self):
+    def download_file(self,file_name):
         ftp = FTP(self.src_server_name)
         ftp.login(user='u180164016.forkit_ftp', passwd = 'forkit@123')
         os.chdir(self.tgt_file_path)
         ftp.cwd(src_file_path)
-        localfile = open(sample_file_name, 'wb')
-        ftp.retrbinary('RETR ' + sample_file_name, localfile.write, 1024)
+        localfile = open(file_name, 'wb')
+        ftp.retrbinary('RETR ' + file_name, localfile.write, 1024)
         ftp.quit()
         localfile.close()
         
     def validation(self):
-        if len(re.split('[\W_]',sample_file_name)) == self.file_element_cnt:
-            if re.search(self.file_name_pattern,sample_file_name):
-                self.download_file()
+        ftp = FTP(self.src_server_name)
+        ftp.login(user='u180164016.forkit_ftp', passwd = 'forkit@123')
+        os.chdir(self.tgt_file_path)
+        ftp.cwd(src_file_path)
+        for file_name in ftp.nlst():
+            if len(re.split('[\W_]',file_name)) == self.file_element_cnt:
+                if re.search(self.file_name_pattern,file_name):
+                    self.download_file(file_name)
 
 
 ########################---------Connecting to Database-----########################
@@ -67,7 +66,3 @@ table_row.validation()
 
 cursor.close()
 conn.close()
-
-########################---------Connecting to ftp and downloading the file-----########################
-#pip install pyftpdlib
-#domain name or server ip:
