@@ -6,7 +6,9 @@
 import os,re
 import pyodbc
 from ftplib import FTP
-###########
+import json
+import pandas as pd 
+
 class file_validation:
     def __init__(self,file_id,src_name,src_server_name,src_file_path,file_name_pattern,file_element_cnt,file_delimiter, file_extension,tgt_server_name,tgt_file_path,tgt_file_name,failure_notification_email, reason,sample_file_name):
         self.file_id=file_id
@@ -15,7 +17,7 @@ class file_validation:
         self.src_file_path=src_file_path
         self.file_name_pattern=file_name_pattern
         self.file_element_cnt=file_element_cnt
-        self.file_delimiter =file_delimiter 
+        self.file_delimiter =file_delimiter
         self.file_extension=file_extension
         self.tgt_server_name=tgt_server_name
         self.tgt_file_path=tgt_file_path
@@ -24,29 +26,42 @@ class file_validation:
         self.reason=reason
 
     
+            
     def download_file(self):
         ftp = FTP(self.src_server_name)
         ftp.login(user='u180164016.forkit_ftp', passwd = 'forkit@123')
         os.chdir(self.tgt_file_path)
         ftp.cwd(src_file_path)
-        localfile = open(sample_file_name, 'wb')
-        ftp.retrbinary('RETR ' + sample_file_name, localfile.write, 1024)
+        for file_name in ftp.nlst():
+            if len(re.split(r'[\W_]',file_name)) == self.file_element_cnt:
+                if re.search(self.file_name_pattern,file_name):
+                    localfile = open(file_name, 'wb')
+                    ftp.retrbinary('RETR ' + file_name, localfile.write, 1024)
+                    localfile.close()
         ftp.quit()
-        localfile.close()
         
-    def validation(self):
-        ftp = FTP(self.src_server_name)
-        ftp.login(user='u180164016.forkit_ftp', passwd = 'forkit@123')
-        os.chdir(self.tgt_file_path)
-        print (src_file_path)
-        ftp.cwd(src_file_path)
-        for sample_file_name in ftp.nlst():
-            if len(re.split('[\W_]',sample_file_name)) == self.file_element_cnt:
-                if re.search(self.file_name_pattern,sample_file_name):
-                    self.download_file()
-
+    def columns_validation(self):       
+        os.chdir(r'E:\Developement\Projects\ForkIT')
+        dataframe1 = pd.read_excel('telus.xlsx')
+        print(dataframe1.dtypes)
+        columns_list  = list(dataframe1.columns.values)
+        print(columns_list)
+        with open('telus.json') as json_file:
+            data = json.load(json_file)
+            # print (len(data["target_files"]["$BASENAME.csv"]["content"]["sheets"]))
+            # print (len(data["target_files"]["$BASENAME.csv"]["content"]["columns"]))
+            source_columns_list = []
+            for content in data['target_files']['$BASENAME.csv']['content']['columns']:
+                source_columns_list.append(content['find'])
+            print(source_columns_list)
+            if len(columns_list)==len(source_columns_list):
+                if columns_list==source_columns_list:
+                    print ('Columns are matching')
+                else:
+                    print('columns are not matching')            
 
 ########################---------Connecting to Database-----########################
+                    
 conn = pyodbc.connect('Driver={SQL Server};'
                       'Server=DESKTOP-RIJEQ44;'
                       'Database=Forkit;'
@@ -54,7 +69,7 @@ conn = pyodbc.connect('Driver={SQL Server};'
 
 
 cursor = conn.cursor()
-cursor.execute('select * from etl_src where file_id = 101')
+cursor.execute('select * from forkit.dbo.etl_src where file_id = 101')
 
 
 data = cursor.fetchall()
@@ -63,7 +78,8 @@ for row in data:
     file_id,src_name,src_server_name,src_file_path,file_name_pattern,file_element_cnt,file_delimiter, file_extension,tgt_server_name,tgt_file_path,tgt_file_name,failure_notification_email, reason,sample_file_name = row
     table_row = file_validation(file_id,src_name,src_server_name,src_file_path,file_name_pattern,file_element_cnt,file_delimiter, file_extension,tgt_server_name,tgt_file_path,tgt_file_name,failure_notification_email, reason,sample_file_name)
 
-table_row.validation()
+table_row.download_file()
+
 
 cursor.close()
 conn.close()
