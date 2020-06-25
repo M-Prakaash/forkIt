@@ -1,0 +1,62 @@
+{
+  "target_files": {
+    "$BASENAME.xlsx": {
+      "content": {
+        "sheets": [
+          "Sheet1"
+        ],
+        "columns": [
+          {
+            "find": "Segment"
+          },
+          {
+            "find": "Country"
+          },
+          {
+            "find": "Product"
+          },
+          {
+            "find": "Discount Band"
+          },
+          {
+            "find": "Units Sold"
+          },
+          {
+            "find": "Manufacturing Price"
+          },
+		  {
+            "find": "Sale Price"
+          },
+          {
+            "find": "Gross Sales"
+          },
+          {
+            "find": "Discounts"
+          },
+          {
+            "find": " Sales"
+          },
+          {
+            "find": "COGS"
+          },
+		  {
+            "find": "Profit"
+          },
+		  {
+            "find": "Date",
+            "format": "date:%d-%m-%Y"
+          },
+          {
+            "find": "Month Number"
+          },
+		  {
+            "find": "Month Name"
+          },
+		  {
+            "find": "Year"
+          }
+        ]
+      }
+    }
+  }
+}

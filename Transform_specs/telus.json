@@ -1,0 +1,32 @@
+{
+  "target_files": {
+    "$BASENAME.xlsx": {
+      "content": {
+        "sheets": [
+          "Sheet1"
+        ],
+        "columns": [
+          {
+            "find": "TITLE"
+          },
+          {
+            "find": "resolution"
+          },
+          {
+            "find": "FORMAT"
+          },
+          {
+            "find": "PRICE"
+          },
+          {
+            "find": "TRANSACTION_DATE",
+            "format": "date:%m/%d/%Y"
+          },
+          {
+            "find": "TRANSACTIONS"
+          }
+        ]
+      }
+    }
+  }
+}
