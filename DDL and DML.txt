@@ -12,7 +12,8 @@ tgt_server_name varchar(50) NOT NULL,
 tgt_file_path varchar(200) NOT NULL,
 tgt_file_name varchar(200) NOT NULL,
 failure_notification_email varchar(100) NOT NULL, 
-reason  varchar(200) NOT NULL,
+work_directory  varchar(200) NOT NULL,
+transform_spec_json varchar(200) NOT NULL,
 sample_file_name varchar(200) NOT NULL
 )
 ;
@@ -27,9 +28,28 @@ values (
 'N/A',
 'xlsx',
 'ftp.icrepair.in',
-'E:\ForkIT\WorkDir\Dev',
+'E:\Developement\Projects\ForkIT',
 'FinancialSample.xlsx',
 'muralig@systechusa.com',
-'Incorect file format',
+'E:\Developement\Projects\ForkIT\Work',
+'E:\Developement\Projects\ForkIT\Transform_specs\sample.json',
 'FinancialSample_20200101.xlsx'
+);
+insert into etl_src
+values (
+102,
+'FTP1',
+'ftp.icrepair.in',
+'Inbox',
+'Telus_\d{8}.xlsx',
+3,
+'N/A',
+'xlsx',
+'ftp.icrepair.in',
+'E:\Developement\Projects\ForkIT',
+'Telus.xlsx',
+'muralig@systechusa.com',
+'E:\Developement\Projects\ForkIT\Work',
+'E:\Developement\Projects\ForkIT\Transform_specs\telus.json',
+'Telus_20200101.xlsx'
 );
