@@ -1,0 +1,45 @@
+Domain Verification Record:
+
+Name: _amazonses.flickapic.com
+value: +Cfq6heaQcHjXdB515F57lTnOGi2qfjGiZe2qOlpME4=
+	
++Cfq6heaQcHjXdB515F57lTnOGi2qfjGiZe2qOlpME4=
+
+
+
+Email Receiving Record:
+
+flickapic.com
+10 inbound-smtp.us-east-1.amazonaws.com
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowSESPuts",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "ses.amazonaws.com"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::fork-it-mail/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:Referer": "453478532726"
+                }
+            }
+        }
+    ]
+}
+
+	
+https://webmail1.hostinger.in/
+forkitforward@flickapic.com
+forkit@flickapic.com
+forkit123
+
+fork-it-email-rule
+S3: fork-it-mail
+
+
+https://youtu.be/nxXIpPZzMd0    -----SES receive mails
