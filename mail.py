@@ -131,8 +131,6 @@ class Email(object):
     def validate(self, destinations):
         self.destinations = destinations
         # edge-case
-        if set(destinations) == set(["COX", "Hoboken"]) and "cox" in self.subject.lower():
-            destinations = ["COX"]
         if len(destinations) > 1:
             self.errors.append(fmt("multiple destinations found:", destinations))
         if not destinations:
@@ -299,11 +297,6 @@ class EmailProcessor(object):
             # edge cases
             destinations = email_destinations(eml, self.rules)
             is_local = False
-            if [destinations] == ["DISNEY"]:
-                file_path = extract_disney(eml, "TODO")
-                eml.attachments.append(os.path.basename(file_path))
-                is_local = True
-            eml.validate(destinations)
             if not eml.errors and update and self.client:
                 destination_dir = os.path.join(self.attachment_dest_dir, destinations[0])
                 self.place_attachments(eml, destination_dir, is_local)

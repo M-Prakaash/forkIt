@@ -16,7 +16,7 @@ class Client(object):
         objects = []
         params = {
             "Bucket": bucket,
-            #"Prefix": prefix,
+            "Prefix": prefix,
             "Delimiter": "/",
             "MaxKeys": 1000
         }

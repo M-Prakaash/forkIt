@@ -1,5 +1,5 @@
 from mail import EmailProcessor
-import os
+#import os
 import logging
 import time
 
@@ -14,14 +14,14 @@ logging.basicConfig(filename=log, level=logging.DEBUG,
 
 
 SECRETS = {
-    "email_aws_secret_access_key": '************'
+    "email_aws_secret_access_key": ''
 }
 
 CONFIG = {
     "email_rules_file": r"C:\Developement\Projects\ForkIT\email_rules.json",
-    "email_s3_inbox_url": "s3://fork-it-mail",
-    "email_s3_attachment_dir": "INBOX/",
-    "email_aws_access_key_id": "************",
+    "email_s3_inbox_url": "s3://fork-it-mail/Mails",
+    "email_s3_attachment_dir": "INBOX",
+    "email_aws_access_key_id": "",
     
 }
 
@@ -34,4 +34,3 @@ email_proc = EmailProcessor(
 results = []
 	
 results = email_proc.check_mail(update=True)
-print('Hi')
