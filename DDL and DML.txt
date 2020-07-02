@@ -28,7 +28,7 @@ values (
 'N/A',
 'xlsx',
 'ftp.icrepair.in',
-'E:\Developement\Projects\ForkIT',
+'E:\Developement\Projects\ForkIT\TgtDir',
 'FinancialSample.xlsx',
 'muralig@systechusa.com',
 'E:\Developement\Projects\ForkIT\Work',
@@ -46,10 +46,48 @@ values (
 'N/A',
 'xlsx',
 'ftp.icrepair.in',
-'E:\Developement\Projects\ForkIT',
+'E:\Developement\Projects\ForkIT\TgtDir',
 'Telus.xlsx',
 'muralig@systechusa.com',
 'E:\Developement\Projects\ForkIT\Work',
 'E:\Developement\Projects\ForkIT\Transform_specs\telus.json',
 'Telus_20200101.xlsx'
+);
+
+insert into etl_src
+values (
+103,
+'S3',
+'fork-it-mail',
+'Mails/INBOX/Financial_sample/',
+'\d{8}_\d{6}_FinancialSample_\d{8}.xlsx',
+9,
+'N/A',
+'xlsx',
+'N/A',
+'E:\Developement\Projects\ForkIT\TgtDir',
+'FinancialSample.xlsx',
+'muralig@systechusa.com',
+'E:\Developement\Projects\ForkIT\Work',
+'E:\Developement\Projects\ForkIT\Transform_specs\sample.json',
+'20200701_093136_FinancialSample_20200101.xlsx'
+);
+
+insert into etl_src
+values (
+104,
+'S3',
+'fork-it-mail',
+'Mails/INBOX/TELUS/',
+'\d{8}_\d{6}_Telus.xlsx',
+7,
+'N/A',
+'xlsx',
+'N/A',
+'E:\Developement\Projects\ForkIT\TgtDir',
+'TELUS.xlsx',
+'muralig@systechusa.com',
+'E:\Developement\Projects\ForkIT\Work',
+'E:\Developement\Projects\ForkIT\Transform_specs\telus.json',
+'20200701_093136_Telus_20200101.xlsx'
 );
