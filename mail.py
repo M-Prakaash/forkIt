@@ -300,7 +300,7 @@ class EmailProcessor(object):
             if not eml.errors and update and self.client:
                 destination_dir = os.path.join(self.attachment_dest_dir, destinations[0])
                 self.place_attachments(eml, destination_dir, is_local)
-                self.move_email(key, "processed", eml.date)
+                self.move_email(key, "Processed", eml.date)
         except Error as error:
             eml.errors.append(fmt(error))
         except Exception as excp:
@@ -325,11 +325,14 @@ class EmailProcessor(object):
                 zipf = zipfile.ZipFile(data, "r")
                 for member in zipf.namelist():
                     dest_key = os.path.join(destination_dir, timestamp + os.path.basename(member))
+                    dest_key = dest_key.replace('\\','/')
                     #logging.info("extracting zip file", member, "to", dest_key)
                     data = zipf.open(member, "r").read()
                     self.client.put_object(data, self.s3_bucket, dest_key)
             else:
                 dest_key = os.path.join(destination_dir, timestamp + filename)
+                dest_key = dest_key.replace('\\','/')
+                #print(self.s3_bucket, dest_key)
                 #logging.info("extracting attachment", filename, "to", dest_key)
                 self.client.put_object(data, self.s3_bucket, dest_key)
 
@@ -339,12 +342,14 @@ class EmailProcessor(object):
         it
         """
         dest_key = os.path.join(self.s3_base_dir, directory)
+        
         if date is not None:
             dest_key = os.path.join(dest_key, date.strftime("%Y%m%d"), os.path.basename(s3key))
         else:
             dest_key = os.path.join(dest_key, os.path.basename(s3key))
         if dest_key == s3key:
             return
+        dest_key = dest_key.replace('\\','/')
         #logging.info("moving file", repr(s3key), "->", repr(dest_key))
         self.client.copy_object(self.s3_bucket, s3key, self.s3_bucket, dest_key)
         self.client.delete_object(self.s3_bucket, s3key)
