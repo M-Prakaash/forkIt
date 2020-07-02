@@ -1,5 +1,8 @@
 {
-"TELUS": {
+  "TELUS": {
     "Subject": ["Telus Data Feed", "Telus"]
+  },
+  "Financial_sample": {
+    "Subject": ["Financial sample Data Feed", "Financial sample"]
   }
 }
