@@ -91,3 +91,20 @@ values (
 'E:\Developement\Projects\ForkIT\Transform_specs\telus.json',
 '20200701_093136_Telus_20200101.xlsx'
 );
+
+CREATE SEQUENCE file_batch_key
+AS INT
+START WITH 1001
+INCREMENT BY 1;
+
+create  table lt_files
+(
+file_batch_id int PRIMARY KEY,
+file_name varchar(200) NOT NULL,
+file_checksum varchar(100) NOT NULL,
+file_src_sys varchar(10) NOT NULL,
+error_descr varchar(100) ,
+file_size int,
+file_row_count int,
+file_load_dt datetime NOT NULL
+);
