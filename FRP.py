@@ -146,9 +146,9 @@ class file_validation:
                         if error_descr== '':
                             shutil.copy(file_name, self.tgt_file_path)
                         else:
-                            os.remove(file_name)
-                            logging.info(file_name+": already processed hence placed in the target directory")
                             
+                            logging.info(file_name+": already processed hence placed in the target directory")
+                        os.remove(file_name)    
                     else:
                         logging.error(
                             file_name+": is not placed in the target directory due to columns mismatch")
@@ -190,9 +190,9 @@ class file_validation:
                                 shutil.copy(file_name, self.tgt_file_path)
                                 logging.info(file_name+": is placed in the target directory")
                             else:
-                                os.remove(file_name)
+                                
                                 logging.info(file_name+": already processed hence placed in the target directory")
-                            
+                            os.remove(file_name)
                             
                         else:
                             logging.error(
@@ -269,7 +269,7 @@ except Exception as e:
 
 
 SECRETS = {
-    "email_aws_secret_access_key": '**************'
+    "email_aws_secret_access_key": '****************************'
 }
 
 CONFIG = {
